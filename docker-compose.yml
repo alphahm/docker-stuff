@@ -1,0 +1,20 @@
+phpapache:
+    build: .
+    dockerfile: Dockerfile_php
+    ports:
+        - "8080:80"
+    volumes:
+        - /Users/ahm/dev/www:/var/www
+    links:
+        - db
+    container_name: php
+    environment:
+      VIRTUAL_HOST: php.docker
+db:
+    build: .
+    dockerfile: Dockerfile_mysql
+    volumes:
+        - /Users/ahm/dev/mysql:/usr/local/mysql/data
+    ports:
+        - "3306:3306"
+    container_name: mysql
