@@ -4,7 +4,7 @@ phpapache:
     ports:
         - "8080:80"
     volumes:
-        - /Users/ahm/dev/www:/var/www
+        - dev:/var/www
     links:
         - db
     container_name: php
@@ -14,7 +14,7 @@ db:
     build: .
     dockerfile: Dockerfile_mysql
     volumes:
-        - /Users/ahm/dev/mysql:/usr/local/mysql/data
+        - mysql:/usr/local/mysql/data
     ports:
-        - "3306:3306"
+        - "3307:3306"
     container_name: mysql

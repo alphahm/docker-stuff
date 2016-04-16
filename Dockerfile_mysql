@@ -1,33 +1,17 @@
 FROM debian
 MAINTAINER alphahm
 
+# add initialisation scripts
+ADD mysql_initialisation.sql /root/mysql_initialisation.sql
+ADD mysql_initialisation.sh /root/mysql_initialisation.sh
+
 RUN apt-get update && \
-apt-get install -y  libaio-dev wget && \
-wget http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.11-linux-glibc2.5-x86_64.tar -O /usr/local/mysql.tar && \
-cd /usr/local && \
-tar xf mysql.tar && \
-rm -rf mysql.tar && \
-rm -f mysql-test-5.7.11-linux-glibc2.5-x86_64.tar.gz && \
-tar xzf mysql-5.7.11-linux-glibc2.5-x86_64.tar.gz && \
-rm -f mysql-5.7.11-linux-glibc2.5-x86_64.tar.gz && \
-ln -s mysql-5.7.11-linux-glibc2.5-x86_64 mysql && \
-groupadd mysql && \
-useradd -r -g mysql -s /bin/false mysql && \
-cd mysql && \
-mkdir mysql-files && \
-chmod 770 mysql-files && \
-chown -R mysql:mysql . && \
-bin/mysqld --initialize --user=mysql && \
-chown -R root . && \
-chown -R mysql data mysql-files && \
-mkdir /tmp/mysql && \
-chown -R mysql:mysql /tmp/mysql && \
-chmod -R 771 /tmp/mysql && \
-touch /etc/my.cnf && \
-echo "[mysqld]\npid-file = /tmp/mysql/mysqld.pid\nlog_error = /tmp/mysql/error.log\nlog-bin=/usr/local/mysql/data/bin-log\nserver-id=1" > /etc/my.cnf && \
-chown mysql /etc/my.cnf && \
+apt-get install --no-install-recommends -y  libaio-dev wget && \
 apt-get clean && \
-rm -rf /var/lib/apt/lists/*
+rm -rf /var/lib/apt/lists/* && \
+chmod +x /root/mysql_initialisation.sh && \
+sync && \
+/root/mysql_initialisation.sh
 
 EXPOSE 3306
 CMD ["/usr/local/mysql/bin/mysqld_safe", "--user=mysql"]
