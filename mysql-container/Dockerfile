@@ -2,6 +2,7 @@ FROM debian
 MAINTAINER alphahm
 
 # add initialisation scripts
+ADD mysql /usr/local/mysql
 ADD mysql_initialisation.sql /root/mysql_initialisation.sql
 ADD mysql_initialisation.sh /root/mysql_initialisation.sh
 
