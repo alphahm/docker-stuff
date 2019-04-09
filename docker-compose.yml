@@ -1,6 +1,6 @@
 phpapache:
-    build: .
-    dockerfile: Dockerfile_php
+    build: ./php-on-apache-container
+    dockerfile: Dockerfile
     ports:
         - "8080:80"
     volumes:
@@ -11,8 +11,8 @@ phpapache:
     environment:
       VIRTUAL_HOST: php.docker
 db:
-    build: .
-    dockerfile: Dockerfile_mysql
+    build: ./mysql-container
+    dockerfile: Dockerfile
     volumes:
         - mysql:/usr/local/mysql/data
     ports:
