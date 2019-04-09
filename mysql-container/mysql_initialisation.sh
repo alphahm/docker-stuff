@@ -1,20 +1,12 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
-cd /usr/local
-
-# get the files, this is here where we need to update the paths in case there is a newer
-# version available. There is one tar.gz inside the tar file provided by Oracle which
-# contains the binaries, libs... the other tar.gz is the test archive which we're not taking
-mkdir mysql
-wget http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.11-linux-glibc2.5\-x86_64.tar -O -| tar xOf - mysql-5.7.11-linux-glibc2.5-x86_64.tar.gz | tar xzf - -C mysql --strip-components=1
-
+cd /usr/local/mysql
 # Users and permissions configuration
 groupadd mysql
 useradd -r -g mysql -s /bin/false mysql
-cd mysql
 mkdir mysql-files
-chmod 770 mysql-files
-chown -R mysql:mysql .
+chown mysql:mysql mysql-files
+chmod 750 mysql-files
 mkdir /tmp/mysql
 chown -R mysql:mysql /tmp/mysql
 chmod -R 771 /tmp/mysql
