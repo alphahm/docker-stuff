@@ -7,7 +7,7 @@ ADD mysql_initialisation.sql /root/mysql_initialisation.sql
 ADD mysql_initialisation.sh /root/mysql_initialisation.sh
 
 RUN apt-get update && \
-apt-get install --no-install-recommends -y  libaio-dev wget && \
+apt-get install --no-install-recommends -y libaio-dev libnuma-dev && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* && \
 chmod +x /root/mysql_initialisation.sh && \
