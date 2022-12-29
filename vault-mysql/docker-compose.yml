@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  vault:
+    image: vault:1.12.2
+    container_name: my_vault
+    ports:
+      - 8200:8200
+    volumes:
+      - ./logs:/vault/logs
+      - ./file:/vault/file
+      - ./config:/vault/config
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault.json
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql:8.0.31
+    container_name: my_mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: secret123
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      timeout: 30s
+      retries: 10

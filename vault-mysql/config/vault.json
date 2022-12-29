@@ -1,0 +1,16 @@
+{
+    "storage": {
+        "mysql": {
+            "username": "root",
+            "password": "secret123",
+            "address": "db:3306"
+        }
+    },
+    "listener": {
+        "tcp": {
+            "address": "0.0.0.0:8200",
+            "tls_disable": 1
+        }
+    },
+    "ui": true
+}
