@@ -1,4 +1,4 @@
-# Custom python container
+# Custom python container
 
 * uses ubuntu base image
 * includes `click`, `pandas`, `SQLAlchemy`
@@ -10,7 +10,7 @@
 docker build -t python_tests .
 ```
 
-## run
+## run
 
 ```
 docker run -ti --rm python_tests bash
